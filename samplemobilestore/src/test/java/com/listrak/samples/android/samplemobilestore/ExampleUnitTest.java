@@ -1,4 +1,4 @@
-package com.listrak.samples.android.samplemobilestore;
+package com.listrak.samplemobilestore;
 
 import org.junit.Test;
 
