@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">Sample Mobile Store</string>
     <string name="title_product_detail">Product Detail</string>
+    <string name="add_to_cart">Add To Cart</string>
+    <string name="remove_from_cart">Remove From Cart</string>
+    <string name="cart_menu_item">Cart (%1$d)</string>
+    <string name="cart">Cart</string>
+    <string name="account">Account</string>
+    <string name="checkout">Checkout</string>
+    <string name="title_activity_product_base">ProductActivityBase</string>
+    <string name="cart_instructions_empty">Cart is empty</string>
+    <string name="cart_instructions_not_empty">Click on an item to remove it</string>
 </resources>

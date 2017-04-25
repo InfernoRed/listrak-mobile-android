@@ -1,9 +1,41 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/product_detail"
-    style="?android:attr/textAppearanceLarge"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    android:textIsSelectable="true"
-    tools:context="com.listrak.samplemobilestore.ProductDetailFragment" />
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context="com.listrak.samplemobilestore.ProductDetailFragment">
+
+    <TextView
+        android:id="@+id/product_detail"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:text="Sample Description for sample product" />
+
+    <TextView
+        android:id="@+id/product_sku"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textColor="@android:color/darker_gray"
+        android:text="SKU-0000" />
+
+    <TextView
+        android:id="@+id/product_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="$0.00" />
+
+    <Button
+        android:id="@+id/btn_toggle_product"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/add_to_cart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Colored" />
+
+</LinearLayout>

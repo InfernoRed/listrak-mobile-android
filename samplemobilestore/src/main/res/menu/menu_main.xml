@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_cart"
+        android:title="Cart (0)"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_account"
+        android:title="Account"
+        app:showAsAction="ifRoom" />
+</menu>
