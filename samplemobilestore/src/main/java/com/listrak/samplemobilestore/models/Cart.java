@@ -16,18 +16,29 @@ public class Cart {
         void onCartChanged();
     }
 
-    private static Map<String, Product> mProductsMap = new HashMap<String, Product>();
-    private static List<ICartListener> mCartListeners = new ArrayList<>();
+    private Map<String, Product> mProductsMap = new HashMap<String, Product>();
+    private List<ICartListener> mCartListeners = new ArrayList<>();
 
-    public static List<Product> getProducts() {
+    private static Cart instance;
+
+    private Cart(){}
+
+    public static Cart getInstance() {
+        if (instance == null) {
+            instance = new Cart();
+        }
+        return instance;
+    }
+
+    public List<Product> getProducts() {
         return new ArrayList<>(mProductsMap.values());
     }
 
-    public static int getProductCount() {
+    public int getProductCount() {
         return mProductsMap.values().size();
     }
 
-    public static double getProductTotalAmount() {
+    public double getProductTotalAmount() {
         double total = 0;
         for (Product product : mProductsMap.values()) {
             total += product.amount;
@@ -35,16 +46,16 @@ public class Cart {
         return total;
     }
 
-    public static String getProductTotalFormatted() {
+    public String getProductTotalFormatted() {
         NumberFormat formatter = NumberFormat.getCurrencyInstance();
         return formatter.format(getProductTotalAmount());
     }
 
-    public static boolean containsProduct(Product product) {
+    public boolean containsProduct(Product product) {
         return mProductsMap.containsValue(product);
     }
 
-    public static void addProduct(Product product) {
+    public void addProduct(Product product) {
         if (!containsProduct(product)) {
             mProductsMap.put(product.sku, product);
             notifyCartChanged();
@@ -52,7 +63,7 @@ public class Cart {
         }
     }
 
-    public static void removeProduct(Product product) {
+    public void removeProduct(Product product) {
         if (containsProduct(product)) {
             mProductsMap.remove(product.sku);
             notifyCartChanged();
@@ -60,23 +71,23 @@ public class Cart {
         }
     }
 
-    public static void clearProducts() {
+    public void clearProducts() {
         mProductsMap.clear();
         notifyCartChanged();
         // TODO: invoke SDK's clearItems
     }
 
-    public static void notifyCartChanged() {
+    public void notifyCartChanged() {
         for (ICartListener listener : mCartListeners) {
             listener.onCartChanged();
         }
     }
 
-    public static void addCartListener(ICartListener listener) {
+    public void addCartListener(ICartListener listener) {
         mCartListeners.add(listener);
     }
 
-    public static void removeCartListener(ICartListener listener) {
+    public void removeCartListener(ICartListener listener) {
         mCartListeners.remove(listener);
     }
 }

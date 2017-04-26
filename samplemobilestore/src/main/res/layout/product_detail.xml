@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context="com.listrak.samplemobilestore.ProductDetailFragment">
+    tools:context="com.listrak.samplemobilestore.views.ProductDetailFragment">
 
     <TextView
         android:id="@+id/product_detail"

@@ -1,4 +1,4 @@
-package com.listrak.samplemobilestore;
+package com.listrak.samplemobilestore.views;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,8 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.listrak.samplemobilestore.R;
 import com.listrak.samplemobilestore.models.DemoData;
-import com.listrak.samplemobilestore.models.Product;
 
 /**
  * An activity representing a list of Products.

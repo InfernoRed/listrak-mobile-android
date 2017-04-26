@@ -1,23 +1,19 @@
-package com.listrak.samplemobilestore;
+package com.listrak.samplemobilestore.views;
 
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
+import com.listrak.samplemobilestore.R;
 import com.listrak.samplemobilestore.models.Cart;
-import com.listrak.samplemobilestore.models.DemoData;
-
-import org.w3c.dom.Text;
 
 public class CartActivity extends AppCompatActivity implements Cart.ICartListener {
 
@@ -37,13 +33,13 @@ public class CartActivity extends AppCompatActivity implements Cart.ICartListene
         setupFooter();
         setupClickHandlers();
 
-        Cart.addCartListener(this);
+        Cart.getInstance().addCartListener(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Cart.removeCartListener(this);
+        Cart.getInstance().removeCartListener(this);
     }
 
     @Override
@@ -66,7 +62,7 @@ public class CartActivity extends AppCompatActivity implements Cart.ICartListene
     private void setupRecyclerView() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.product_list);
         assert recyclerView != null;
-        ProductListRecyclerViewAdapter adapter = new ProductListRecyclerViewAdapter(Cart.getProducts()){
+        ProductListRecyclerViewAdapter adapter = new ProductListRecyclerViewAdapter(Cart.getInstance().getProducts()){
             @Override
             public void onBindViewHolder(final ViewHolder holder, int position) {
                 super.onBindViewHolder(holder, position);
@@ -80,7 +76,7 @@ public class CartActivity extends AppCompatActivity implements Cart.ICartListene
                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         // continue with delete
-                                        Cart.removeProduct(holder.mItem);
+                                        Cart.getInstance().removeProduct(holder.mItem);
                                     }
                                 })
                                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -99,16 +95,16 @@ public class CartActivity extends AppCompatActivity implements Cart.ICartListene
 
     private void setupFooter() {
         TextView totalAmount = (TextView) findViewById(R.id.total_amount);
-        totalAmount.setText(Cart.getProductTotalFormatted());
-        totalAmount.setVisibility(Cart.getProductCount() > 0 ? View.VISIBLE : View.GONE);
+        totalAmount.setText(Cart.getInstance().getProductTotalFormatted());
+        totalAmount.setVisibility(Cart.getInstance().getProductCount() > 0 ? View.VISIBLE : View.GONE);
 
         ((TextView) findViewById(R.id.instructions)).setText(getResources()
-                .getString(Cart.getProductCount() > 0 ?
+                .getString(Cart.getInstance().getProductCount() > 0 ?
                         R.string.cart_instructions_not_empty :
                         R.string.cart_instructions_empty));
 
-        findViewById(R.id.btn_clear).setVisibility(Cart.getProductCount() > 0 ? View.VISIBLE : View.GONE);
-        findViewById(R.id.btn_checkout).setVisibility(Cart.getProductCount() > 0 ? View.VISIBLE : View.GONE);
+        findViewById(R.id.btn_clear).setVisibility(Cart.getInstance().getProductCount() > 0 ? View.VISIBLE : View.GONE);
+        findViewById(R.id.btn_checkout).setVisibility(Cart.getInstance().getProductCount() > 0 ? View.VISIBLE : View.GONE);
     }
 
 
@@ -116,7 +112,7 @@ public class CartActivity extends AppCompatActivity implements Cart.ICartListene
         findViewById(R.id.btn_clear).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Cart.clearProducts();
+                Cart.getInstance().clearProducts();
             }
         });
 

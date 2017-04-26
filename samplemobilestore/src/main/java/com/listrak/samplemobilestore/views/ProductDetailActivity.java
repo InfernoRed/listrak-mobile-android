@@ -1,17 +1,10 @@
-package com.listrak.samplemobilestore;
+package com.listrak.samplemobilestore.views;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 
+import com.listrak.samplemobilestore.R;
 import com.listrak.samplemobilestore.models.Cart;
 
 /**
@@ -44,13 +37,13 @@ public class ProductDetailActivity extends ProductActivityBase implements Cart.I
                     .add(R.id.product_detail_container, fragment)
                     .commit();
         }
-        Cart.addCartListener(this);
+        Cart.getInstance().addCartListener(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Cart.removeCartListener(this);
+        Cart.getInstance().removeCartListener(this);
     }
 
     @Override

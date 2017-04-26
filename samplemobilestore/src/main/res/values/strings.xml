@@ -10,4 +10,13 @@
     <string name="title_activity_product_base">ProductActivityBase</string>
     <string name="cart_instructions_empty">Cart is empty</string>
     <string name="cart_instructions_not_empty">Click on an item to remove it</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email Address</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="account_description_signed_in">The following is information about your account.</string>
+    <string name="account_description_not_signed_in">Enter your information below and click the Sign In.</string>
+    <string name="account_sign_in_error_title">Can\'t Sign In</string>
+    <string name="account_sign_in_error_message">Please fill in all fields and try again</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.listrak.samplemobilestore;
+package com.listrak.samplemobilestore.views;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.listrak.samplemobilestore.R;
 import com.listrak.samplemobilestore.models.Cart;
 import com.listrak.samplemobilestore.models.DemoData;
 import com.listrak.samplemobilestore.models.Product;
@@ -46,7 +47,7 @@ public class ProductDetailFragment extends Fragment implements Cart.ICartListene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Cart.addCartListener(this);
+        Cart.getInstance().addCartListener(this);
 
         if (getArguments().containsKey(ARG_SKU)) {
             mItem = DemoData.PRODUCT_MAP.get(getArguments().getString(ARG_SKU));
@@ -77,9 +78,9 @@ public class ProductDetailFragment extends Fragment implements Cart.ICartListene
             @Override
             public void onClick(View view) {
               if (((Button) view).getText() == getResources().getString(R.string.add_to_cart)) {
-                  Cart.addProduct(mItem);
+                  Cart.getInstance().addProduct(mItem);
               } else {
-                  Cart.removeProduct(mItem);
+                  Cart.getInstance().removeProduct(mItem);
               }
             }
         });
@@ -95,11 +96,11 @@ public class ProductDetailFragment extends Fragment implements Cart.ICartListene
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Cart.removeCartListener(this);
+        Cart.getInstance().removeCartListener(this);
     }
 
     protected void updateButton() {
         mProductBtn.setText(getResources().getString(
-                Cart.containsProduct(mItem) ? R.string.remove_from_cart : R.string.add_to_cart));
+                Cart.getInstance().containsProduct(mItem) ? R.string.remove_from_cart : R.string.add_to_cart));
     }
 }
