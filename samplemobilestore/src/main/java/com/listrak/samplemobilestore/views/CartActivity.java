@@ -71,8 +71,8 @@ public class CartActivity extends AppCompatActivity implements Cart.ICartListene
                     @Override
                     public void onClick(View v) {
                         new AlertDialog.Builder(v.getContext())
-                                .setTitle("Remove Item")
-                                .setMessage("Are you sure you want to delete this entry?")
+                                .setTitle(getResources().getString(R.string.cart_delete_title))
+                                .setMessage(getResources().getString(R.string.cart_delete_message))
                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         // continue with delete

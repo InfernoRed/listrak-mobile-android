@@ -32,12 +32,6 @@ public class AccountActivity extends AppCompatActivity implements Account.IAccou
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        mDescriptionText = (TextView) findViewById(R.id.description);
-        mEmailEdit = (EditText) findViewById(R.id.email);
-        mFirstNameEdit = (EditText) findViewById(R.id.first_name);
-        mLastNameEdit = (EditText) findViewById(R.id.last_name);
-        mSignInOutBtn = (Button) findViewById(R.id.btn_sign_in_out);
-
         setupView();
 
         Account.getInstance().addAccountListener(this);
@@ -62,10 +56,20 @@ public class AccountActivity extends AppCompatActivity implements Account.IAccou
 
     @Override
     public void onAccountChanged() {
-        setupView();
+        setupAccount();
     }
 
     private void setupView() {
+        mDescriptionText = (TextView) findViewById(R.id.description);
+        mEmailEdit = (EditText) findViewById(R.id.email);
+        mFirstNameEdit = (EditText) findViewById(R.id.first_name);
+        mLastNameEdit = (EditText) findViewById(R.id.last_name);
+        mSignInOutBtn = (Button) findViewById(R.id.btn_sign_in_out);
+
+        setupAccount();
+    }
+
+    private void setupAccount() {
         Account account = Account.getInstance();
 
         mEmailEdit.setText(account.getEmail());

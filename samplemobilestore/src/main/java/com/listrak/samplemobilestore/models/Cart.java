@@ -77,6 +77,15 @@ public class Cart {
         // TODO: invoke SDK's clearItems
     }
 
+    public boolean processOrder(String email, String firstName, String lastName, String orderNum) {
+        if (email == null || email.isEmpty() || firstName == null || firstName.isEmpty() ||
+                lastName == null || lastName.isEmpty() || orderNum == null || orderNum.isEmpty()) {
+            return false;
+        }
+        clearProducts();
+        return true;
+    }
+
     public void notifyCartChanged() {
         for (ICartListener listener : mCartListeners) {
             listener.onCartChanged();

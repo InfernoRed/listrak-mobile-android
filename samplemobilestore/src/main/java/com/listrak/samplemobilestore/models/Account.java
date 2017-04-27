@@ -54,13 +54,13 @@ public class Account {
     }
 
     public boolean isSignedIn() {
-        return mEmail != null && mEmail.length() > 0;
+        return mEmail != null && !mEmail.isEmpty();
     }
 
     public boolean signIn(Context context, String email, String firstName, String lastName) {
-        if (email == null || email.length() == 0 ||
-                firstName == null || firstName.length() == 0 ||
-                lastName == null || lastName.length() == 0) {
+        if (email == null || email.isEmpty() ||
+                firstName == null || firstName.isEmpty() ||
+                lastName == null || lastName.isEmpty()) {
             return false;
         }
 

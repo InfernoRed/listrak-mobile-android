@@ -19,4 +19,14 @@
     <string name="account_description_not_signed_in">Enter your information below and click the Sign In.</string>
     <string name="account_sign_in_error_title">Can\'t Sign In</string>
     <string name="account_sign_in_error_message">Please fill in all fields and try again</string>
+    <string name="cart_delete_title">Remove Item</string>
+    <string name="cart_delete_message">Are you sure you want to delete this entry?</string>
+    <string name="checkout_description_signed_in">Verify your information below and click the Buy button at the bottom.</string>
+    <string name="checkout_description_not_signed_in">Enter your information below and click the Buy button at the bottom.</string>
+    <string name="checkout_order_number">Order: #%1$s</string>
+    <string name="checkout_total">Total: %1$s</string>
+    <string name="checkout_confirm_message">Are you sure you\'re ready to buy?</string>
+    <string name="checkout_error_title">Can\'t Buy</string>
+    <string name="checkout_error_message">Make sure you\'ve filled out all entries before continuing.</string>
+    <string name="buy">Buy</string>
 </resources>
