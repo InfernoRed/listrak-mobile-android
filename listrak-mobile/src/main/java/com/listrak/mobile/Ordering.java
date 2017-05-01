@@ -24,7 +24,7 @@ public class Ordering {
         return order;
     }
 
-    public static void SubmitOrder(Order order) {
+    public static void submitOrder(Order order) {
         if (order == null) {
             throw new IllegalArgumentException("order cannot be null");
         }

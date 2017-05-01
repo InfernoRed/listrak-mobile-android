@@ -15,9 +15,4 @@ public class Item {
         this.quantity = quantity;
         this.amount = amount;
     }
-
-    @Override
-    public String toString() {
-        return sku;
-    }
 }

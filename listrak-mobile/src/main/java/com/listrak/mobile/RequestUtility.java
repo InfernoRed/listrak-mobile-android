@@ -50,7 +50,7 @@ class RequestUtility {
         String hostOverride = context.getHostOverride();
         host = hostOverride == null || hostOverride.isEmpty() ? host : hostOverride;
 
-        String baseUrl = scheme + "://" + host + path;
+        String baseUrl = scheme + "://" + host + "/" + path;
         String formattedUrl = String.format(baseUrl, args);
 
         if (additionalParams != null && !additionalParams.isEmpty()) {

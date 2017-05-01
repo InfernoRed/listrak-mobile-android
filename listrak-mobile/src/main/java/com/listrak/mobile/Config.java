@@ -28,7 +28,7 @@ public class Config {
     /**
      * Private constructor for the singleton creation requiring a builder
      */
-    private Config(Builder builder) {
+    protected Config(Builder builder) {
         mClientTemplateId = builder.mClientTemplateId;
         mClientMerchantId = builder.mClientMerchantId;
         mUseHttps = builder.mUseHttps;
@@ -127,7 +127,7 @@ public class Config {
         getContainer().addComponent(IHttpService.class, HttpService.class);
     }
 
-    public class Builder {
+    public static class Builder {
         private boolean mUseHttps;
         private String mAppId;
         private String mClientTemplateId;

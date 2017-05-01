@@ -134,7 +134,7 @@ public class Order {
     /**
      * Sets the customer's info from the current configured session
      */
-    public void SetCustomerFromSession()
+    public void setCustomerFromSession()
     {
         setCustomer(Session.getEmailAddress(), Session.getFirstName(), Session.getLastName());
     }
