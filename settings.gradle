@@ -1,1 +1,1 @@
-include ':samplemobilestore'
+include ':samplemobilestore', ':listrak-mobile'
