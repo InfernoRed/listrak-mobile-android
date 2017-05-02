@@ -7,7 +7,7 @@ package com.listrak.mobile;
 
 public class Item {
     public final String sku;
-    public final int quantity;
+    public int quantity;
     public final double amount;
 
     protected Item(String sku, int quantity, double amount) {

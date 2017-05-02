@@ -10,10 +10,18 @@ import com.listrak.mobile.interfaces.IListrakService;
 public class Ordering {
     private Ordering() { }
 
+    /**
+     * Creates an empty order object
+     * @return
+     */
     public static Order createOrder() {
         return new Order();
     }
-    
+
+    /**
+     * Creates a new order object with items from the Cart
+     * @return
+     */
     public static Order createOrderFromCart() {
         Order order = createOrder();
 
@@ -24,6 +32,10 @@ public class Ordering {
         return order;
     }
 
+    /**
+     * Submits the order to the listrak service and restart the session
+     * @param order
+     */
     public static void submitOrder(Order order) {
         if (order == null) {
             throw new IllegalArgumentException("order cannot be null");
@@ -35,7 +47,7 @@ public class Ordering {
         svc.submitOrder(order);
 
         // prevent SCA emails
-        svc.finalizeCart(order.getEmailAddress(), order.getFirstName(), order.getLastName(), order.getOrderNumber());
+        svc.finalizeCart(order.getOrderNumber(), order.getEmailAddress(), order.getFirstName(), order.getLastName());
 
         // reset session
         Session.reset();

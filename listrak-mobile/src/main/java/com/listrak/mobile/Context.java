@@ -23,6 +23,9 @@ class Context implements IContext {
     }
 
     @Override
+    public String getVisitId() { return Config.getVisitId(); }
+
+    @Override
     public String getTemplateId() {
         return Config.getClientTemplateId();
     }
@@ -50,6 +53,11 @@ class Context implements IContext {
     @Override
     public Date getTimestamp() {
         return timestamp;
+    }
+
+    @Override
+    public long getUnixTimestamp() {
+        return timestamp.getTime() / 1000;
     }
 
     @Override

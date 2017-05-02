@@ -1,5 +1,7 @@
 package com.listrak.mobile;
 
+import android.content.SharedPreferences;
+
 import com.listrak.mobile.interfaces.IContext;
 import com.listrak.mobile.interfaces.IHttpService;
 import com.listrak.mobile.interfaces.IListrakService;
@@ -21,6 +23,7 @@ public class Config {
     private boolean mInitialized;
     private boolean mUseHttps;
     private String mAppId;
+    private String mVisitId;
     private String mClientTemplateId;
     private String mClientMerchantId;
     private String mHostOverride;
@@ -29,11 +32,11 @@ public class Config {
      * Private constructor for the singleton creation requiring a builder
      */
     protected Config(Builder builder) {
+        AndroidSharedPreferences.initializeContext(builder.androidContext);
         mClientTemplateId = builder.mClientTemplateId;
         mClientMerchantId = builder.mClientMerchantId;
         mUseHttps = builder.mUseHttps;
         mHostOverride = builder.mHostOverride;
-        mAppId = builder.mAppId;
     }
 
     /**
@@ -42,6 +45,8 @@ public class Config {
      * @see com.listrak.mobile.Config.Builder
      */
     public static void initialize(Config config) {
+        config.mVisitId = UUID.randomUUID().toString();
+        config.mAppId = getAppIdFromSharedPreferences();
         config.mInitialized = true;
 
         sInstance = config;
@@ -63,6 +68,14 @@ public class Config {
      */
     public static String getAppId() {
         return getInstance().mAppId;
+    }
+
+    /**
+     * Returns the visit id
+     * @return
+     */
+    public static String getVisitId() {
+        return getInstance().mVisitId;
     }
 
     /**
@@ -127,9 +140,19 @@ public class Config {
         getContainer().addComponent(IHttpService.class, HttpService.class);
     }
 
+    private static String getAppIdFromSharedPreferences() {
+        final String APP_ID_KEY = "LISTRAK-APP-ID";
+        String appId = AndroidSharedPreferences.readSharedPreferences(APP_ID_KEY);
+        if (appId == null || appId.isEmpty()) {
+            appId = UUID.randomUUID().toString();
+            AndroidSharedPreferences.saveSharedPreferences(APP_ID_KEY, appId);
+        }
+        return appId;
+    }
+
     public static class Builder {
+        private final android.content.Context androidContext;
         private boolean mUseHttps;
-        private String mAppId;
         private String mClientTemplateId;
         private String mClientMerchantId;
         private String mHostOverride;
@@ -139,17 +162,19 @@ public class Config {
          * @param clientTemplateId
          * @param clientMerchantId
          */
-        public Builder(String clientTemplateId, String clientMerchantId) {
+        public Builder(android.content.Context context, String clientTemplateId, String clientMerchantId) {
+            if (context == null) {
+                throw new IllegalArgumentException("Must supply the android context");
+            }
             if (clientTemplateId == null || clientTemplateId.isEmpty()) {
                 throw new IllegalArgumentException("Must supply clientTemplateId");
             }
             if (clientMerchantId == null || clientMerchantId.isEmpty()) {
                 throw new IllegalArgumentException("Must supply clientMerchantId");
             }
+            androidContext = context;
             mClientTemplateId = clientTemplateId;
             mClientMerchantId = clientMerchantId;
-
-            mAppId = UUID.randomUUID().toString();
             mUseHttps = true;
         }
 

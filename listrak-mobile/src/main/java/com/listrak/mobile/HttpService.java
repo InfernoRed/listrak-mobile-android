@@ -4,6 +4,7 @@ package com.listrak.mobile;
 import com.listrak.mobile.interfaces.IHttpService;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

@@ -15,6 +15,12 @@ public interface IContext {
     String getGlobalSessionId();
 
     /**
+     * Return the current visit id
+     * @return String GUID of visit
+     */
+    String getVisitId();
+
+    /**
      * Return the client's template id
      * @return String of the client template id
      */
@@ -49,6 +55,12 @@ public interface IContext {
      * @return Date representing the timestamp
      */
     Date getTimestamp();
+
+    /**
+     * Returns the unix timestamp for when the context was created
+     * @return long representing the timestamp
+     */
+    long getUnixTimestamp();
 
     /**
      * Returns a new string of a generated GUID

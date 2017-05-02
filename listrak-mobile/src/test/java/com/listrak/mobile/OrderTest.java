@@ -36,7 +36,7 @@ public class OrderTest extends BaseUnitTest {
     @Test
     public void setCustomer_withValidArgs_doesNotThrowException() {
         Order order = new Order();
-        order.setCustomer("email", "first", "last");
+        order.setCustomer("email", null, "last");
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -46,19 +46,8 @@ public class OrderTest extends BaseUnitTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void setCustomer_withNullFirstName_throwsException() {
-        Order order = new Order();
-        order.setCustomer("email", null, "last");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void setCustomer_withNullLastName_throwsException() {
-        Order order = new Order();
-        order.setCustomer("email", "first", null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void setCustomerFromSession_withoutSession_throwsException() {
+    public void setCustomerFromSession_withoutSessionIdentity_throwsException() throws InstantiationException {
+        Session.start();
         Order order = new Order();
         order.setCustomerFromSession();
     }

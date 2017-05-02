@@ -23,12 +23,14 @@ public class OrderingTest extends BaseUnitTest {
 
     @Test
     public void createOrderFromCart_withNoCartItems_initializesEmptyOrder() {
+        Cart.clearItems();
         Order order = Ordering.createOrderFromCart();
         assertEquals(0, order.getItems().size());
     }
 
     @Test
     public void createOrderFromCart_withValidCartItem_incrementsCollectionSize() throws UnsupportedEncodingException, InstantiationException {
+        Cart.clearItems();
         Cart.addItem("sku", 1, 1.0, "title");
         Order order = Ordering.createOrderFromCart();
         assertEquals(1, order.getItems().size());

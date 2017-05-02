@@ -1,7 +1,11 @@
 package com.listrak.mobile;
 
+import android.support.annotation.Nullable;
+
 import com.listrak.mobile.interfaces.IListrakService;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -34,6 +38,10 @@ public class Session {
         return sInstance;
     }
 
+    /**
+     * Starts the session without an identity
+     * @throws InstantiationException
+     */
     public static void start() throws InstantiationException {
         Config.ensureInitialized();
 
@@ -48,31 +56,35 @@ public class Session {
         session.mLastName = "";
     }
 
-    public static void startWithIdentity(String emailAddress, String firstName, String lastName) throws InstantiationException, IllegalArgumentException {
+    /**
+     * Starts the session with the given identity
+     * @param emailAddress
+     * @param firstName
+     * @param lastName
+     * @throws InstantiationException
+     * @throws IllegalArgumentException
+     */
+    public static void startWithIdentity(String emailAddress, @Nullable String firstName, @Nullable String lastName) throws InstantiationException, IllegalArgumentException {
         Config.ensureInitialized();
         if (emailAddress == null || emailAddress.isEmpty()) {
             throw new IllegalArgumentException("emailAddress cannot be null or empty");
-        }
-        if (firstName == null || firstName.isEmpty()) {
-            throw new IllegalArgumentException("firstName cannot be null or empty");
-        }
-        if (lastName == null || lastName.isEmpty()) {
-            throw new IllegalArgumentException("lastName cannot be null or empty");
         }
 
         start();
         setIdentity(emailAddress, firstName, lastName);
     }
 
-    public static void setIdentity(String emailAddress, String firstName, String lastName) throws InstantiationException, IllegalArgumentException {
+    /**
+     * Updates the session with the given identity
+     * @param emailAddress
+     * @param firstName
+     * @param lastName
+     * @throws InstantiationException
+     * @throws IllegalArgumentException
+     */
+    public static void setIdentity(String emailAddress, @Nullable String firstName, @Nullable String lastName) throws InstantiationException, IllegalArgumentException {
         if (emailAddress == null || emailAddress.isEmpty()) {
             throw new IllegalArgumentException("emailAddress cannot be null or empty");
-        }
-        if (firstName == null || firstName.isEmpty()) {
-            throw new IllegalArgumentException("firstName cannot be null or empty");
-        }
-        if (lastName == null || lastName.isEmpty()) {
-            throw new IllegalArgumentException("lastName cannot be null or empty");
         }
 
         Session session = getInstance();
@@ -88,6 +100,31 @@ public class Session {
         session.mHasIdentity = true;
 
         Config.resolve(IListrakService.class).captureCustomer(emailAddress);
+    }
+
+    /**
+     * Subscribes the current customer's identity with the given subscriber code
+     * @param subscriberCode
+     * @param meta
+     */
+    public static void subscribe(String subscriberCode, @Nullable Map<String, String> meta) throws InstantiationException {
+        if (subscriberCode == null || subscriberCode.isEmpty()) {
+            throw new IllegalArgumentException("subscriberCode cannot be null or empty");
+        }
+
+        Session session = getInstance();
+        if (!session.mIsStarted) {
+            throw new InstantiationException("Session has not been started yet.");
+        }
+        if (!session.mHasIdentity) {
+            throw new InstantiationException("Session identity has not been set yet.");
+        }
+
+        if (meta == null) {
+            meta = new HashMap<>();
+        }
+
+        Config.resolve(IListrakService.class).subscribeCustomer(subscriberCode, session.mEmailAddress, meta);
     }
 
     public static boolean isStarted() {

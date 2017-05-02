@@ -1,5 +1,7 @@
 package com.listrak.mobile;
 
+import android.support.annotation.Nullable;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -114,16 +116,10 @@ public class Order {
      * @param firstName
      * @param lastName
      */
-    public void setCustomer(String emailAddress, String firstName, String lastName)
+    public void setCustomer(String emailAddress, @Nullable String firstName, @Nullable String lastName)
     {
         if (emailAddress == null || emailAddress.isEmpty()) {
             throw new IllegalArgumentException("emailAddress cannot be null or empty");
-        }
-        if (firstName == null || firstName.isEmpty()) {
-            throw new IllegalArgumentException("firstName cannot be null or empty");
-        }
-        if (lastName == null || lastName.isEmpty()) {
-            throw new IllegalArgumentException("lastName cannot be null or empty");
         }
 
         mEmailAddress = emailAddress;
