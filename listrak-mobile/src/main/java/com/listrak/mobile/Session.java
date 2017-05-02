@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.listrak.mobile.interfaces.IListrakService;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -64,7 +65,7 @@ public class Session {
      * @throws InstantiationException
      * @throws IllegalArgumentException
      */
-    public static void startWithIdentity(String emailAddress, @Nullable String firstName, @Nullable String lastName) throws InstantiationException, IllegalArgumentException {
+    public static void startWithIdentity(String emailAddress, @Nullable String firstName, @Nullable String lastName) throws InstantiationException, IllegalArgumentException, UnsupportedEncodingException {
         Config.ensureInitialized();
         if (emailAddress == null || emailAddress.isEmpty()) {
             throw new IllegalArgumentException("emailAddress cannot be null or empty");
@@ -82,7 +83,7 @@ public class Session {
      * @throws InstantiationException
      * @throws IllegalArgumentException
      */
-    public static void setIdentity(String emailAddress, @Nullable String firstName, @Nullable String lastName) throws InstantiationException, IllegalArgumentException {
+    public static void setIdentity(String emailAddress, @Nullable String firstName, @Nullable String lastName) throws InstantiationException, IllegalArgumentException, UnsupportedEncodingException {
         if (emailAddress == null || emailAddress.isEmpty()) {
             throw new IllegalArgumentException("emailAddress cannot be null or empty");
         }
@@ -107,7 +108,7 @@ public class Session {
      * @param subscriberCode
      * @param meta
      */
-    public static void subscribe(String subscriberCode, @Nullable Map<String, String> meta) throws InstantiationException {
+    public static void subscribe(String subscriberCode, @Nullable Map<String, String> meta) throws InstantiationException, UnsupportedEncodingException {
         if (subscriberCode == null || subscriberCode.isEmpty()) {
             throw new IllegalArgumentException("subscriberCode cannot be null or empty");
         }

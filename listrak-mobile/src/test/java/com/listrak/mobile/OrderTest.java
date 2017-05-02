@@ -2,6 +2,8 @@ package com.listrak.mobile;
 
 import org.junit.Test;
 
+import java.io.UnsupportedEncodingException;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -53,7 +55,7 @@ public class OrderTest extends BaseUnitTest {
     }
 
     @Test
-    public void setCustomerFromSession_withSessionIdentityStarted_doesNotThrowException() throws InstantiationException {
+    public void setCustomerFromSession_withSessionIdentityStarted_doesNotThrowException() throws InstantiationException, UnsupportedEncodingException {
         Session.startWithIdentity("email", "first", "last");
         Order order = new Order();
         order.setCustomerFromSession();

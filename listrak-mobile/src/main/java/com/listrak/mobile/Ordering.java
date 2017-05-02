@@ -2,6 +2,8 @@ package com.listrak.mobile;
 
 import com.listrak.mobile.interfaces.IListrakService;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * Ordering class
  * Created by Pam on 5/1/2017.
@@ -36,7 +38,7 @@ public class Ordering {
      * Submits the order to the listrak service and restart the session
      * @param order
      */
-    public static void submitOrder(Order order) {
+    public static void submitOrder(Order order) throws UnsupportedEncodingException, InstantiationException {
         if (order == null) {
             throw new IllegalArgumentException("order cannot be null");
         }

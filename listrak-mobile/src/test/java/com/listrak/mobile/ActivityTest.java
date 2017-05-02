@@ -2,6 +2,8 @@ package com.listrak.mobile;
 
 import org.junit.Test;
 
+import java.io.UnsupportedEncodingException;
+
 import static org.mockito.Mockito.verify;
 
 /**
@@ -16,7 +18,7 @@ public class ActivityTest extends BaseUnitTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void trackProductBrowse_withNullSku_throwsException() {
+    public void trackProductBrowse_withNullSku_throwsException() throws UnsupportedEncodingException, InstantiationException {
         Activity.trackProductBrowse(null);
     }
 }

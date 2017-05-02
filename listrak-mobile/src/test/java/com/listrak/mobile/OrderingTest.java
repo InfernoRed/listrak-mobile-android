@@ -22,7 +22,7 @@ public class OrderingTest extends BaseUnitTest {
     }
 
     @Test
-    public void createOrderFromCart_withNoCartItems_initializesEmptyOrder() {
+    public void createOrderFromCart_withNoCartItems_initializesEmptyOrder() throws UnsupportedEncodingException, InstantiationException {
         Cart.clearItems();
         Order order = Ordering.createOrderFromCart();
         assertEquals(0, order.getItems().size());
@@ -37,19 +37,19 @@ public class OrderingTest extends BaseUnitTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void submitOrder_withNullOrder_throwsException() {
+    public void submitOrder_withNullOrder_throwsException() throws UnsupportedEncodingException, InstantiationException {
         Ordering.submitOrder(null);
     }
 
     @Test
-    public void submitOrder_withValidOrder_callsServiceSubmitOrder() {
+    public void submitOrder_withValidOrder_callsServiceSubmitOrder() throws UnsupportedEncodingException, InstantiationException {
         Order mockOrder = mock(Order.class);
         Ordering.submitOrder(mockOrder);
         verify(mockListrackService).submitOrder(mockOrder);
     }
 
     @Test
-    public void submitOrder_withValidOrder_callsServiceFinalizeCart() {
+    public void submitOrder_withValidOrder_callsServiceFinalizeCart() throws UnsupportedEncodingException, InstantiationException {
         Order mockOrder = mock(Order.class);
         Ordering.submitOrder(mockOrder);
         verify(mockListrackService).finalizeCart(mockOrder.getEmailAddress(), mockOrder.getFirstName(),
@@ -57,7 +57,7 @@ public class OrderingTest extends BaseUnitTest {
     }
 
     @Test
-    public void submitOrder_withValidOrder_resetsSession() {
+    public void submitOrder_withValidOrder_resetsSession() throws UnsupportedEncodingException, InstantiationException {
         String sessionId = Session.getSessionId();
         Order mockOrder = mock(Order.class);
         Ordering.submitOrder(mockOrder);

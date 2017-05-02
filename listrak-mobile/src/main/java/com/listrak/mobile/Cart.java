@@ -109,7 +109,7 @@ public class Cart {
     /**
      * Clears the cart items
      */
-    public static void clearItems() {
+    public static void clearItems() throws UnsupportedEncodingException, InstantiationException {
         mItems.clear();
         Config.resolve(IListrakService.class).clearCart();
     }

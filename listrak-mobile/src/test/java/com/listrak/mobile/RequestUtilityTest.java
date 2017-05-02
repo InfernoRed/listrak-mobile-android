@@ -59,6 +59,8 @@ public class RequestUtilityTest extends BaseUnitTest {
     }
 
     private void setupMockContext(boolean useHttps) {
+        Config.getContainer().removeComponent(IContext.class);
+
         IContext mockContext = mock(IContext.class);
         when(mockContext.getUseHttps()).thenReturn(useHttps);
         Config.getContainer().addComponent(IContext.class, mockContext);

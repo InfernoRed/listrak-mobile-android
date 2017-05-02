@@ -18,12 +18,9 @@ import java.util.Map;
 class ListrakService implements IListrakService {
     @Override
     public void trackProductBrowse(String[] skus) throws InstantiationException, UnsupportedEncodingException {
-        if (skus == null || skus.length != 0) {
-            throw new IllegalArgumentException("skus cannot be null or empty");
-        }
+        verifyArgument(skus, "skus");
 
-        IContext context = Config.resolve(IContext.class);
-        context.validate();
+        IContext context = getAndValidateContext();
 
         Map<String, String> params = new HashMap<>();
         params.put("vuid", context.getVisitId());
@@ -39,19 +36,16 @@ class ListrakService implements IListrakService {
             index++;
         }
 
-        String url = RequestUtility.getFormattedUrl("at1.listrakbi.com", "/activity/{0}", params, context.getMerchantId());
-
-        RequestUtility.sendRequest(url);
+        final String trackProductBrowseHost = "at1.listrakbi.com";
+        final String trackProductBrowsePath = "/activity/{0}";
+        sendFormattedRequest(trackProductBrowseHost, trackProductBrowsePath, params, context.getMerchantId());
     }
 
     @Override
     public void captureCustomer(String email) throws InstantiationException, UnsupportedEncodingException {
-        if (email == null || email.isEmpty()) {
-            throw new IllegalArgumentException("email cannot be null or empty");
-        }
+        verifyArgument(email, "email");
 
-        IContext context = Config.resolve(IContext.class);
-        context.validate();
+        IContext context = getAndValidateContext();
 
         Map<String, String> params = new HashMap<>();
         params.put("_tid", context.getTemplateId());
@@ -61,15 +55,14 @@ class ListrakService implements IListrakService {
         params.put("_t", String.valueOf(context.getUnixTimestamp()));
         params.put("email", email);
 
-        String url = RequestUtility.getFormattedUrl("sca1.listrakbi.com", "/Handlers/Update.ashx", params);
-
-        RequestUtility.sendRequest(url);
+        final String captureCustomerHost = "sca1.listrakbi.com";
+        final String captureCustomerPath = "/Handlers/Update.ashx";
+        sendFormattedRequest(captureCustomerHost, captureCustomerPath, params);
     }
 
     @Override
     public void clearCart() throws InstantiationException, UnsupportedEncodingException {
-        IContext context = Config.resolve(IContext.class);
-        context.validate();
+        IContext context = getAndValidateContext();
 
         Map<String, String> params = new HashMap<>();
         params.put("_tid", context.getTemplateId());
@@ -78,19 +71,16 @@ class ListrakService implements IListrakService {
         params.put("_sid", context.getSessionId());
         params.put("cc", "true");
 
-        String url = RequestUtility.getFormattedUrl("sca1.listrakbi.com", "/Handlers/Set.ashx", params);
-
-        RequestUtility.sendRequest(url);
+        final String clearCartHost = "sca1.listrakbi.com";
+        final String clearCartPath = "/Handlers/Set.ashx";
+        sendFormattedRequest(clearCartHost, clearCartPath, params);
     }
 
     @Override
     public void updateCart(Collection<CartItem> cartItems) throws InstantiationException, UnsupportedEncodingException {
-        if (cartItems == null) {
-            throw new IllegalArgumentException("cartItems cannot be null");
-        }
+        verifyArgument(cartItems, "cartItems");
 
-        IContext context = Config.resolve(IContext.class);
-        context.validate();
+        IContext context = getAndValidateContext();
 
         Map<String, String> params = new HashMap<>();
         params.put("_tid", context.getTemplateId());
@@ -109,19 +99,16 @@ class ListrakService implements IListrakService {
             index++;
         }
 
-        String url = RequestUtility.getFormattedUrl("sca1.listrakbi.com", "/Handlers/Set.ashx", params);
-
-        RequestUtility.sendRequest(url);
+        final String updateCartHost = "sca1.listrakbi.com";
+        final String updateCartPath = "/Handlers/Set.ashx";
+        sendFormattedRequest(updateCartHost, updateCartPath, params);
     }
 
     @Override
     public void submitOrder(Order order) throws InstantiationException, UnsupportedEncodingException {
-        if (order == null) {
-            throw new IllegalArgumentException("order cannot be null");
-        }
+        verifyArgument(order, "order");
 
-        IContext context = Config.resolve(IContext.class);
-        context.validate();
+        IContext context = getAndValidateContext();
 
         Map<String, String> params = new HashMap<>();
         params.put("ctid", context.getMerchantId());
@@ -143,22 +130,17 @@ class ListrakService implements IListrakService {
         if (!(order.getLastName() == null || order.getLastName().isEmpty())) params.put("ln_2", order.getLastName());
         params.put("_t_3", "i");
 
-        String url = RequestUtility.getFormattedUrl("s1.listrakbi.com", "/t/T.ashx", params);
-
-        RequestUtility.sendRequest(url);
+        final String submitOrderHost = "s1.listrakbi.com";
+        final String submitOrderPath = "/t/T.ashx";
+        sendFormattedRequest(submitOrderHost, submitOrderPath, params);
     }
 
     @Override
     public void finalizeCart(String orderNumber, String email, @Nullable String firstName, @Nullable String lastName) throws InstantiationException, UnsupportedEncodingException {
-        if (orderNumber == null || orderNumber.isEmpty()) {
-            throw new IllegalArgumentException("orderNumber cannot be null or empty");
-        }
-        if (email == null || email.isEmpty()) {
-            throw new IllegalArgumentException("email cannot be null or empty");
-        }
+        verifyArgument(orderNumber, "orderNumber");
+        verifyArgument(email, "email");
 
-        IContext context = Config.resolve(IContext.class);
-        context.validate();
+        IContext context = getAndValidateContext();
 
         Map<String, String> params = new HashMap<>();
         params.put("_tid", context.getTemplateId());
@@ -170,22 +152,17 @@ class ListrakService implements IListrakService {
         if (!(firstName == null || firstName.isEmpty())) params.put("fn", firstName);
         if (!(lastName == null || lastName.isEmpty())) params.put("ln", lastName);
 
-        String url = RequestUtility.getFormattedUrl("sca1.listrakbi.com", "/Handlers/Set.ashx", params);
-
-        RequestUtility.sendRequest(url);
+        final String finalizeCartHost = "sca1.listrakbi.com";
+        final String finalizeCartPath = "/Handlers/Set.ashx";
+        sendFormattedRequest(finalizeCartHost, finalizeCartPath, params);
     }
 
     @Override
     public void subscribeCustomer(String subscriberCode, String email, Map<String, String> meta) throws InstantiationException, UnsupportedEncodingException {
-        if (subscriberCode == null || subscriberCode.isEmpty()) {
-            throw new IllegalArgumentException("subscriberCode cannot be null or empty");
-        }
-        if (email == null || email.isEmpty()) {
-            throw new IllegalArgumentException("email cannot be null or empty");
-        }
+        verifyArgument(subscriberCode, "subscriberCode");
+        verifyArgument(email, "email");
 
-        IContext context = Config.resolve(IContext.class);
-        context.validate();
+        IContext context = getAndValidateContext();
 
         Map<String, String> params = new HashMap<>();
         params.put("ctid", context.getMerchantId());
@@ -199,8 +176,33 @@ class ListrakService implements IListrakService {
             params.put(kv.getKey() + "_0", kv.getValue());
         }
 
-        String url = RequestUtility.getFormattedUrl("s1.listrakbi.com", "/t/S.ashx", params);
+        final String subscribeCustomerHost = "s1.listrakbi.com";
+        final String subscribeCustomerPath = "/t/S.ashx";
+        sendFormattedRequest(subscribeCustomerHost, subscribeCustomerPath, params);
+    }
 
+    private void verifyArgument(Object arg, String argName) {
+        if (arg == null) {
+            throw new IllegalArgumentException(argName + " cannot be null");
+        }
+    }
+
+    private void verifyArgument(String arg, String argName) {
+        if (arg == null || arg.isEmpty()) {
+            throw new IllegalArgumentException(argName + " cannot be null or empty");
+        }
+    }
+
+    private IContext getAndValidateContext() throws InstantiationException {
+        IContext context = Config.resolve(IContext.class);
+        context.validate();
+        return context;
+    }
+
+    private void sendFormattedRequest(String host, String path,
+                                      @Nullable Map<String, String> additionalParams, Object... args)
+            throws UnsupportedEncodingException {
+        String url = RequestUtility.getFormattedUrl(host, path, additionalParams, args);
         RequestUtility.sendRequest(url);
     }
 }

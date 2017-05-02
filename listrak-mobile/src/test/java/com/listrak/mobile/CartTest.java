@@ -131,13 +131,13 @@ public class CartTest extends BaseUnitTest {
     }
 
     @Test
-    public void clearItems_emptiesCart() {
+    public void clearItems_emptiesCart() throws UnsupportedEncodingException, InstantiationException {
         Cart.clearItems();
         assertEquals(0, Cart.getItems().size());
     }
 
     @Test
-    public void clearItems_callsService() {
+    public void clearItems_callsService() throws UnsupportedEncodingException, InstantiationException {
         Cart.clearItems();
         verify(mockListrackService).clearCart();
     }

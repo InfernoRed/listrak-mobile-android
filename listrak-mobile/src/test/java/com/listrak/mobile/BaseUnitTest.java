@@ -34,9 +34,6 @@ public abstract class BaseUnitTest {
         Config.initialize(new Config.Builder(this.mockAndroidContext, CLIENT_TEMPLATE_ID, CLIENT_MERCHANT_ID).build());
         Config.getContainer().removeComponent(IListrakService.class);
         Config.getContainer().addComponent(IListrakService.class, mockListrackService);
-
-        Config.getContainer().removeComponent(IContext.class);
-        Config.getContainer().removeComponent(IHttpService.class);
     }
 
     private Context getAndroidContext() {
