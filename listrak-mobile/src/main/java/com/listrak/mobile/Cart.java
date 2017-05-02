@@ -102,7 +102,7 @@ public class Cart {
         if (!hasItem(sku)) {
             throw new IndexOutOfBoundsException("cart does not contain the specified sku");
         }
-        mItems.remove(sku);
+        mItems.remove(sku.toLowerCase());
         updateCart();
     }
 
@@ -123,7 +123,7 @@ public class Cart {
         if (sku == null || sku.isEmpty()) {
             throw new IllegalArgumentException("sku cannot be null or empty");
         }
-        return mItems.containsKey(sku);
+        return mItems.containsKey(sku.toLowerCase());
     }
 
     /**
@@ -138,7 +138,7 @@ public class Cart {
         if (!hasItem(sku)) {
             return null;
         }
-        return mItems.get(sku);
+        return mItems.get(sku.toLowerCase());
     }
 
     private static void updateCart() throws InstantiationException, UnsupportedEncodingException {

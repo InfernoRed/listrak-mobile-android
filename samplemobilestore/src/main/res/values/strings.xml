@@ -29,4 +29,5 @@
     <string name="checkout_error_title">Can\'t Buy</string>
     <string name="checkout_error_message">Make sure you\'ve filled out all entries before continuing.</string>
     <string name="buy">Buy</string>
+    <string name="subscribe">Subscribe to our mailing list</string>
 </resources>

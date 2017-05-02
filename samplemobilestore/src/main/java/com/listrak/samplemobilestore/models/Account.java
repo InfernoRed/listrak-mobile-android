@@ -2,9 +2,15 @@ package com.listrak.samplemobilestore.models;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.ToggleButton;
 
+import com.listrak.mobile.Session;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Account model
@@ -57,7 +63,7 @@ public class Account {
         return mEmail != null && !mEmail.isEmpty();
     }
 
-    public boolean signIn(Context context, String email, String firstName, String lastName) {
+    public boolean signIn(Context context, String email, final String firstName, final String lastName, boolean subscribe) {
         if (email == null || email.isEmpty() ||
                 firstName == null || firstName.isEmpty() ||
                 lastName == null || lastName.isEmpty()) {
@@ -69,7 +75,29 @@ public class Account {
         mLastName = lastName;
 
         saveSharedPreferences();
-        // TODO: invoke SDK call to setSessionIdentity
+
+        try {
+            // LISTRAK SDK
+            // when a user signs-in set the session identity
+            // (a session should have been started when app started)
+            //
+            Session.setIdentity(email, firstName, lastName);
+
+
+            if (subscribe)
+            {
+                // LISTRAK SDK
+                // a user can be subscribed to a Listrak mailing list
+                // This can be done anytime after a session has been identified
+                //
+                final Map<String, String> subscribeMeta = new HashMap<String, String>() {{ put("fname", firstName); put("lname", lastName); }};
+                Session.subscribe("SAMPLEAPP", subscribeMeta);
+            }
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         return true;
     }
 
@@ -79,7 +107,16 @@ public class Account {
         mLastName = null;
 
         saveSharedPreferences();
-        // TODO: invoke SDK call to startSession
+
+        try {
+            // LISTRAK SDK
+            // always need a session
+            // when user signs-out start a new session
+            //
+            Session.start();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
     }
     
     public void notifyAccountChanged() {

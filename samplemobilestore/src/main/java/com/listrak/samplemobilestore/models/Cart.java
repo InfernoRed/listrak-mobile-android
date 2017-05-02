@@ -1,5 +1,9 @@
 package com.listrak.samplemobilestore.models;
 
+import com.listrak.mobile.Order;
+import com.listrak.mobile.Ordering;
+
+import java.io.UnsupportedEncodingException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,7 +63,17 @@ public class Cart {
         if (!containsProduct(product)) {
             mProductsMap.put(product.sku, product);
             notifyCartChanged();
-            // TODO: invoke SDK's addItem
+
+            try {
+                // LISTRAK SDK
+                // let the sdk know we have added a new cart item
+                //
+                com.listrak.mobile.Cart.addItem(product.sku, 1, product.amount, product.name);
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -67,14 +81,34 @@ public class Cart {
         if (containsProduct(product)) {
             mProductsMap.remove(product.sku);
             notifyCartChanged();
-            // TODO: invoke SDK's removeItem
+
+            try {
+                // LISTRAK SDK
+                // let the sdk know we are removing a cart item
+                //
+                com.listrak.mobile.Cart.removeItem(product.sku);
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void clearProducts() {
         mProductsMap.clear();
         notifyCartChanged();
-        // TODO: invoke SDK's clearItems
+
+        try {
+            // LISTRAK SDK
+            // have the sdk clear all cart items
+            //
+            com.listrak.mobile.Cart.clearItems();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean processOrder(String email, String firstName, String lastName, String orderNum) {
@@ -82,6 +116,22 @@ public class Cart {
                 lastName == null || lastName.isEmpty() || orderNum == null || orderNum.isEmpty()) {
             return false;
         }
+        try {
+            // LISTRAK SDK
+            // create an order from our cart and set necessary info
+            // once order has been filled-out, submit it
+            //
+            Order order = Ordering.createOrderFromCart();
+            order.setCustomer(email, firstName, lastName);
+            order.setOrderNumber(orderNum);
+            order.setOrderTotal(getProductTotalAmount());
+            Ordering.submitOrder(order);
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
         clearProducts();
         return true;
     }

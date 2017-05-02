@@ -86,7 +86,8 @@ public class AccountActivity extends AppCompatActivity implements Account.IAccou
                     aInstance.signOut(view.getContext());
                 } else {
                     boolean success = aInstance.signIn(view.getContext(), mEmailEdit.getText().toString(),
-                            mFirstNameEdit.getText().toString(), mLastNameEdit.getText().toString());
+                            mFirstNameEdit.getText().toString(), mLastNameEdit.getText().toString(),
+                            ((ToggleButton) findViewById(R.id.subscribe_toggle)).isChecked());
                     if (!success) {
                         new AlertDialog.Builder(view.getContext())
                                 .setTitle(getResources().getString(R.string.account_sign_in_error_title))
@@ -111,5 +112,6 @@ public class AccountActivity extends AppCompatActivity implements Account.IAccou
         mSignInOutBtn.setText(getResources().getString(isSignedIn ? R.string.sign_out : R.string.sign_in));
         mDescriptionText.setText(getResources().getString(isSignedIn ?
                 R.string.account_description_signed_in : R.string.account_description_not_signed_in));
+        findViewById(R.id.subscribe_layout).setVisibility(isSignedIn ? View.GONE : View.VISIBLE);
     }
 }

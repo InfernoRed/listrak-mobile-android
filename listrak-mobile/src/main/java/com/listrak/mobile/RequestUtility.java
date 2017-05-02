@@ -55,7 +55,7 @@ class RequestUtility {
 
             queryString.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
             queryString.append('=');
-            queryString.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+            queryString.append(entry.getValue() == null ? "" : URLEncoder.encode(entry.getValue(), "UTF-8"));
         }
 
         queryString.insert(0, url.indexOf("?") > 0 ? '&' : '?');
