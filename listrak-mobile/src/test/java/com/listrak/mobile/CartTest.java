@@ -10,7 +10,6 @@ import java.util.Collection;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.ArgumentMatchers.booleanThat;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.verify;
 
@@ -27,7 +26,7 @@ public class CartTest extends BaseUnitTest {
     @Test
     public void addItem_withOnlyValidArgs_callsService() throws UnsupportedEncodingException, InstantiationException {
         Cart.addItem("sku", 1, 1.0, "title");
-        verify(mockListrackService).updateCart(ArgumentMatchers.<CartItem>anyCollection());
+        verify(mMockListrackService).updateCart(ArgumentMatchers.<CartItem>anyCollection());
     }
 
     @Test
@@ -88,7 +87,7 @@ public class CartTest extends BaseUnitTest {
     public void updateItemQuantity_withValidArgs_callsService() throws UnsupportedEncodingException, InstantiationException {
         Cart.addItem("sku", 1, 1.0, "title");
         Cart.updateItemQuantity("sku", 2);
-        verify(mockListrackService, atLeast(2)).updateCart(ArgumentMatchers.<CartItem>anyCollection());
+        verify(mMockListrackService, atLeast(2)).updateCart(ArgumentMatchers.<CartItem>anyCollection());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -117,7 +116,7 @@ public class CartTest extends BaseUnitTest {
     public void removeItem_withValidArgs_callsService() throws UnsupportedEncodingException, InstantiationException {
         Cart.addItem("sku", 1, 1.0, "title");
         Cart.removeItem("sku");
-        verify(mockListrackService, atLeast(2)).updateCart(ArgumentMatchers.<CartItem>anyCollection());
+        verify(mMockListrackService, atLeast(2)).updateCart(ArgumentMatchers.<CartItem>anyCollection());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -139,6 +138,6 @@ public class CartTest extends BaseUnitTest {
     @Test
     public void clearItems_callsService() throws UnsupportedEncodingException, InstantiationException {
         Cart.clearItems();
-        verify(mockListrackService).clearCart();
+        verify(mMockListrackService).clearCart();
     }
 }

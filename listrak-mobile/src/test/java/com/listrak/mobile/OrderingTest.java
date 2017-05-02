@@ -1,7 +1,5 @@
 package com.listrak.mobile;
 
-import com.listrak.mobile.interfaces.IListrakService;
-
 import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
@@ -45,14 +43,14 @@ public class OrderingTest extends BaseUnitTest {
     public void submitOrder_withValidOrder_callsServiceSubmitOrder() throws UnsupportedEncodingException, InstantiationException {
         Order mockOrder = mock(Order.class);
         Ordering.submitOrder(mockOrder);
-        verify(mockListrackService).submitOrder(mockOrder);
+        verify(mMockListrackService).submitOrder(mockOrder);
     }
 
     @Test
     public void submitOrder_withValidOrder_callsServiceFinalizeCart() throws UnsupportedEncodingException, InstantiationException {
         Order mockOrder = mock(Order.class);
         Ordering.submitOrder(mockOrder);
-        verify(mockListrackService).finalizeCart(mockOrder.getEmailAddress(), mockOrder.getFirstName(),
+        verify(mMockListrackService).finalizeCart(mockOrder.getEmailAddress(), mockOrder.getFirstName(),
                 mockOrder.getLastName(), mockOrder.getOrderNumber());
     }
 

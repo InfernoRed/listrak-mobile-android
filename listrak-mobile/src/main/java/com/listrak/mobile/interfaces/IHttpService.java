@@ -10,6 +10,13 @@ import okhttp3.Response;
 
 public interface IHttpService {
     /**
+     * Sends the request using the IHttpService for the given URl
+     * @param url
+     * @throws Exception
+     */
+    void sendRequest(String url);
+
+    /**
      * Retrieve an okhttp3 Response for the specified Request.
      *
      * @param request the request to execute

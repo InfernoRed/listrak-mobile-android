@@ -3,6 +3,7 @@ package com.listrak.mobile;
 import android.support.annotation.Nullable;
 
 import com.listrak.mobile.interfaces.IContext;
+import com.listrak.mobile.interfaces.IHttpService;
 import com.listrak.mobile.interfaces.IListrakService;
 
 import java.io.UnsupportedEncodingException;
@@ -37,7 +38,7 @@ class ListrakService implements IListrakService {
         }
 
         final String trackProductBrowseHost = "at1.listrakbi.com";
-        final String trackProductBrowsePath = "/activity/{0}";
+        final String trackProductBrowsePath = "/activity/%s";
         sendFormattedRequest(trackProductBrowseHost, trackProductBrowsePath, params, context.getMerchantId());
     }
 
@@ -203,6 +204,6 @@ class ListrakService implements IListrakService {
                                       @Nullable Map<String, String> additionalParams, Object... args)
             throws UnsupportedEncodingException {
         String url = RequestUtility.getFormattedUrl(host, path, additionalParams, args);
-        RequestUtility.sendRequest(url);
+        Config.resolve(IHttpService.class).sendRequest(url);
     }
 }

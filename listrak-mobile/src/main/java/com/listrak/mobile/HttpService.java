@@ -19,6 +19,17 @@ class HttpService implements IHttpService {
     private static OkHttpClient _okHttpClient = getOkHttpClient();
 
     @Override
+    public void sendRequest(String url) {
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        Response response = Config.resolve(IHttpService.class).getResponse(request);
+        if (!response.isSuccessful()) {
+            // TODO: handle bad response?
+        }
+    }
+
+    @Override
     public Response getResponse(Request request) {
         Response response = null;
 

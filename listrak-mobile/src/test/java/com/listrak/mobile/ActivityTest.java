@@ -14,7 +14,7 @@ public class ActivityTest extends BaseUnitTest {
     public void trackProductBrowse_withValidSku_callsService() throws Exception {
         String sku = "test sku";
         Activity.trackProductBrowse(sku);
-        verify(mockListrackService).trackProductBrowse(new String[]{sku});
+        verify(mMockListrackService).trackProductBrowse(new String[]{sku});
     }
 
     @Test(expected = IllegalArgumentException.class)

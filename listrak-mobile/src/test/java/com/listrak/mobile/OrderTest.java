@@ -48,15 +48,15 @@ public class OrderTest extends BaseUnitTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void setCustomerFromSession_withoutSessionIdentity_throwsException() throws InstantiationException {
-        Session.start();
+    public void setCustomerFromSession_withoutSessionIdentity_throwsException() throws InstantiationException, UnsupportedEncodingException {
+        setupSession(false);
         Order order = new Order();
         order.setCustomerFromSession();
     }
 
     @Test
     public void setCustomerFromSession_withSessionIdentityStarted_doesNotThrowException() throws InstantiationException, UnsupportedEncodingException {
-        Session.startWithIdentity("email", "first", "last");
+        setupSession(true);
         Order order = new Order();
         order.setCustomerFromSession();
     }

@@ -3,14 +3,10 @@ package com.listrak.mobile;
 import android.support.annotation.Nullable;
 
 import com.listrak.mobile.interfaces.IContext;
-import com.listrak.mobile.interfaces.IHttpService;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
-
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * Helper class to handle formatting and executing requests
@@ -18,21 +14,6 @@ import okhttp3.Response;
  */
 
 class RequestUtility {
-    /**
-     * Sends the request using the IHttpService for the given URl
-     * @param url
-     * @throws Exception
-     */
-    static void sendRequest(String url) {
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-        Response response = Config.resolve(IHttpService.class).getResponse(request);
-        if (!response.isSuccessful()) {
-            // TODO: handle bad response?
-        }
-    }
-
     /**
      * Returns the formatted url containing any additional parameters and formatted according the configured context
      * @param host
@@ -49,6 +30,9 @@ class RequestUtility {
 
         String hostOverride = context.getHostOverride();
         host = hostOverride == null || hostOverride.isEmpty() ? host : hostOverride;
+
+        // if path contains slash in the beginning already, remove it so we don't have double slashes
+        path = path.startsWith("/") ? path.substring(1) : path;
 
         String baseUrl = scheme + "://" + host + "/" + path;
         String formattedUrl = String.format(baseUrl, args);
