@@ -60,12 +60,6 @@ public abstract class BaseUnitTest {
         Config.getContainer().removeComponent(IHttpService.class);
 
         this.mMockHttpService = mock(IHttpService.class);
-//        Response mockResponse = new Response.Builder()
-//                                    .request(new Request.Builder())
-//                                    .code(withSuccess ? 200 : 400)
-//                                    .build();
-//        when(mockResponse.isSuccessful()).thenReturn(withSuccess);
-        //when(mMockHttpService.getResponse(any(Request.class))).thenReturn(any(Response.class));
         Config.getContainer().addComponent(IHttpService.class, mMockHttpService);
     }
 

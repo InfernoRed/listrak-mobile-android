@@ -126,7 +126,7 @@ public class ListrakServiceTest extends BaseUnitTest {
 
     private String getCapturedUrlArgument() {
         ArgumentCaptor<String> urlArgCaptor = ArgumentCaptor.forClass(String.class);
-        verify(this.mMockHttpService).sendRequest(urlArgCaptor.capture());
+        verify(this.mMockHttpService).enqueueRequest(urlArgCaptor.capture());
         return urlArgCaptor.getValue();
     }
 }

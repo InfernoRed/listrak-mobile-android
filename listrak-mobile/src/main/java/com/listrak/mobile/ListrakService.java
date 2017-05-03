@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 /**
  * IListrakService implementation that sends data to Listrak
@@ -204,6 +205,6 @@ class ListrakService implements IListrakService {
                                       @Nullable Map<String, String> additionalParams, Object... args)
             throws UnsupportedEncodingException {
         String url = RequestUtility.getFormattedUrl(host, path, additionalParams, args);
-        Config.resolve(IHttpService.class).sendRequest(url);
+        Config.resolve(IHttpService.class).enqueueRequest(url);
     }
 }
