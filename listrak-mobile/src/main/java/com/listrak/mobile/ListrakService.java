@@ -1,16 +1,16 @@
 package com.listrak.mobile;
 
 import android.support.annotation.Nullable;
+import android.support.v4.os.IResultReceiver;
 
 import com.listrak.mobile.interfaces.IContext;
-import com.listrak.mobile.interfaces.IHttpService;
+import com.listrak.mobile.interfaces.IRequestService;
 import com.listrak.mobile.interfaces.IListrakService;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 /**
  * IListrakService implementation that sends data to Listrak
@@ -204,7 +204,8 @@ class ListrakService implements IListrakService {
     private void sendFormattedRequest(String host, String path,
                                       @Nullable Map<String, String> additionalParams, Object... args)
             throws UnsupportedEncodingException {
-        String url = RequestUtility.getFormattedUrl(host, path, additionalParams, args);
-        Config.resolve(IHttpService.class).enqueueRequest(url);
+        IRequestService requestService = Config.resolve(IRequestService.class);
+        String url = requestService.getFormattedUrl(host, path, additionalParams, args);
+        requestService.enqueueRequest(url);
     }
 }

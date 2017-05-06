@@ -158,6 +158,14 @@ public class Session {
         }
     }
 
+    /**
+     * used for testing purposes
+     */
+    protected static void endSession() {
+        getInstance().mIsStarted = false;
+        getInstance().mHasIdentity = false;
+    }
+
     protected static void reset() {
         getInstance().mSessionId = generateSessionId();
     }

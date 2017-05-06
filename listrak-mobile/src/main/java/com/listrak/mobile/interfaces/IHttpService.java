@@ -1,17 +1,15 @@
 package com.listrak.mobile.interfaces;
 
-import java.util.concurrent.ExecutionException;
-
 /**
- * Manages HTTP requests
- * Created by Pam on 5/1/2017.
+ * Manage HTTP requests
+ * Created by Pam on 5/6/2017.
  */
 
 public interface IHttpService {
     /**
-     * Sends the request using the IHttpService for the given URl
+     * Sends the HTTP request for the given URL and returns true if it succeeded with out any errors
      * @param url
-     * @throws Exception
+     * @return
      */
-    void enqueueRequest(String url);
+    boolean getResponse(String url);
 }

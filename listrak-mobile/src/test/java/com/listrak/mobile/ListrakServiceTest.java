@@ -19,7 +19,7 @@ public class ListrakServiceTest extends BaseUnitTest {
     @Override
     public void initialize() throws InstantiationException, UnsupportedEncodingException {
         Config.initialize(new Config.Builder(this.mockAndroidContext, CLIENT_TEMPLATE_ID, CLIENT_MERCHANT_ID).build());
-        setupMockHttpService(true);
+        setupMockRequestService();
         setupMockContext();
         setupSession(false);
         service = new ListrakService();
@@ -126,7 +126,7 @@ public class ListrakServiceTest extends BaseUnitTest {
 
     private String getCapturedUrlArgument() {
         ArgumentCaptor<String> urlArgCaptor = ArgumentCaptor.forClass(String.class);
-        verify(this.mMockHttpService).enqueueRequest(urlArgCaptor.capture());
+        verify(this.mMockRequestService).enqueueRequest(urlArgCaptor.capture());
         return urlArgCaptor.getValue();
     }
 }

@@ -1,9 +1,8 @@
 package com.listrak.mobile;
 
-import android.content.SharedPreferences;
-
 import com.listrak.mobile.interfaces.IContext;
 import com.listrak.mobile.interfaces.IHttpService;
+import com.listrak.mobile.interfaces.IRequestService;
 import com.listrak.mobile.interfaces.IListrakService;
 
 import org.picocontainer.DefaultPicoContainer;
@@ -137,6 +136,7 @@ public class Config {
     private static void initializeContainer() {
         getContainer().addComponent(IListrakService.class, ListrakService.class);
         getContainer().addComponent(IContext.class, Context.class);
+        getContainer().addComponent(IRequestService.class, RequestService.class);
         getContainer().addComponent(IHttpService.class, HttpService.class);
     }
 

@@ -7,14 +7,13 @@ import static org.mockito.Mockito.*;
 
 import com.listrak.mobile.interfaces.IContext;
 import com.listrak.mobile.interfaces.IHttpService;
+import com.listrak.mobile.interfaces.IRequestService;
 import com.listrak.mobile.interfaces.IListrakService;
 
 import org.junit.Before;
+import org.mockito.ArgumentMatchers;
 
 import java.io.UnsupportedEncodingException;
-
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * Base Test class for all tests to inherit
@@ -29,6 +28,7 @@ public abstract class BaseUnitTest {
     protected SharedPreferences mMockSharedPreferences;
     protected IListrakService mMockListrackService;
     protected IContext mMockContext;
+    protected IRequestService mMockRequestService;
     protected IHttpService mMockHttpService;
 
     protected BaseUnitTest() {
@@ -56,11 +56,21 @@ public abstract class BaseUnitTest {
         Config.getContainer().addComponent(IListrakService.class, mMockListrackService);
     }
 
-    protected void setupMockHttpService(boolean withSuccess) {
+    protected void setupMockHttpService(boolean responseIsSuccessful) {
         Config.getContainer().removeComponent(IHttpService.class);
 
         this.mMockHttpService = mock(IHttpService.class);
+        when(this.mMockHttpService.getResponse(anyString())).thenReturn(responseIsSuccessful);
         Config.getContainer().addComponent(IHttpService.class, mMockHttpService);
+    }
+
+    protected void setupMockRequestService() throws UnsupportedEncodingException {
+        Config.getContainer().removeComponent(IRequestService.class);
+
+        this.mMockRequestService = mock(RequestService.class);
+        when(this.mMockRequestService.getFormattedUrl(anyString(), anyString(),
+                ArgumentMatchers.<String, String>anyMap(), any(Object.class))).thenCallRealMethod();
+        Config.getContainer().addComponent(IRequestService.class, mMockRequestService);
     }
 
     protected void setupMockContext() throws InstantiationException {
